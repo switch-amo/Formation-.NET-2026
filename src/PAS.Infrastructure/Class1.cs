@@ -1,7 +1,5 @@
-﻿namespace PAS.Infrastructure
-{
-    public class Class1
-    {
+﻿namespace PAS.Infrastructure {
+    public class Class1 {
 
     }
 }
