@@ -1,0 +1,11 @@
+.vs/
+bin/
+obj/
+packages/
+*.suo
+*.user
+/build/Publish/
+/AppData/
+/src/Process/Delta.Process.VSAddIn*/Dlls/
+/src/Core/Delta.Core.Pdf.CnsPdfAnalyzer.Test/AppData/
+*.*.Custom.json

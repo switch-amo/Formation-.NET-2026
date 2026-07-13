@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Policy Administration System": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
