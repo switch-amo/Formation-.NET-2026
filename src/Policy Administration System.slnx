@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/backend/" />
+  <Folder Name="/src/backend/PAS/">
+    <Project Path="PAS.Api/PAS.Api.csproj" Id="5e468931-f9ae-4ea2-8eba-0ed0ceb54050" />
+    <Project Path="PAS.Applications/PAS.Application.csproj" Id="6048a583-c5d5-4c79-aaae-8e15461d1fe9" />
+    <Project Path="PAS.Domains/PAS.Domain.csproj" Id="7b9f780d-7701-4cd6-ab12-24e6608f6194" />
+    <Project Path="PAS.Infrastructure/PAS.Infrastructure.csproj" Id="d00838c1-9295-48f0-b88e-eb05e7f7479e" />
+  </Folder>
+  <Folder Name="/src/frontend/" />
+</Solution>
