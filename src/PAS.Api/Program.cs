@@ -1,32 +1,38 @@
+using PAS.Api.Endpoints;
+using PAS.Application.Repositories;
+using PAS.Infrastructure.Repositories;
+using Scalar.AspNetCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add API services
+builder.Services.AddOpenApi();
+
+// Register MediatR
+builder.Services.AddMediatR(configuration => {
+    configuration.RegisterServicesFromAssembly(typeof(PAS.Application.Queries.GetFundList.GetFundListQuery).Assembly);
+});
+
+// Register application dependencies
+builder.Services.AddScoped<IFundRepository, JsonFundRepository>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure HTTP request pipeline
 
-app.UseHttpsRedirection();
+if (app.Environment.IsDevelopment()) {
+    app.MapOpenApi();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    app.MapScalarApiReference(options => {
+        options
+            .WithTitle("Policy Administration System API")
+            .WithDefaultHttpClient(
+                ScalarTarget.CSharp,
+                ScalarClient.HttpClient);
+    });
+}
 
-app.MapGet("/weatherforecast", () => {
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-});
+// Map endpoints
+app.MapFundEndpoints();
 
 app.Run();
-
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary) {
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
