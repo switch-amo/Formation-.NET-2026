@@ -1,38 +1,35 @@
-using PAS.Api.Endpoints;
-using PAS.Application.Repositories;
-using PAS.Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
+using PAS.Asset.Api;
+using PAS.Asset.Api.Endpoints;
+using PAS.Asset.Application;
+using PAS.Asset.Infrastructure.Persistence;
+using PAS.Infrastructure;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add API services
+// Each layer registers its own services — Program.cs stays tiny.
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure(builder.Configuration);
+
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
+
 builder.Services.AddOpenApi();
-
-// Register MediatR
-builder.Services.AddMediatR(configuration => {
-    configuration.RegisterServicesFromAssembly(typeof(PAS.Application.Queries.GetFundList.GetFundListQuery).Assembly);
-});
-
-// Register application dependencies
-builder.Services.AddScoped<IFundRepository, JsonFundRepository>();
 
 var app = builder.Build();
 
-// Configure HTTP request pipeline
-
-if (app.Environment.IsDevelopment()) {
-    app.MapOpenApi();
-
-    app.MapScalarApiReference(options => {
-        options
-            .WithTitle("Policy Administration System API")
-            .WithDefaultHttpClient(
-                ScalarTarget.CSharp,
-                ScalarClient.HttpClient);
-    });
+// Apply any pending EF Core migrations at startup (creates the DB if needed).
+using (var scope = app.Services.CreateScope()) {
+    var dbContext = scope.ServiceProvider.GetRequiredService<AssetDbContext>();
+    dbContext.Database.EnsureCreated();
 }
 
-// Map endpoints
+app.UseExceptionHandler();
+
+app.MapOpenApi();            // /openapi/v1.json
+app.MapScalarApiReference(); // Scalar UI at /scalar/v1
+
 app.MapFundEndpoints();
 
 app.Run();

@@ -1,5 +1,7 @@
 <Solution>
-  <Folder Name="/src/" />
+  <Folder Name="/src/">
+    <Project Path="PAS.Aspire/PAS.Aspire.csproj" Id="d2ce6913-4da1-4002-bae9-1cd1cede2625" />
+  </Folder>
   <Folder Name="/src/backend/" />
   <Folder Name="/src/backend/PAS/">
     <Project Path="PAS.Api/PAS.Api.csproj" Id="5e468931-f9ae-4ea2-8eba-0ed0ceb54050" />
