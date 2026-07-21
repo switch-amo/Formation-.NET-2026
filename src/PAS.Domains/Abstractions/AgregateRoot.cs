@@ -1,6 +1,6 @@
 ﻿namespace PAS.Domain.Abstractions;
 
-public abstract class AggregateRoot : Entity {
+public abstract class AggregateRoot<TId> : Entity<TId> {
     private readonly List<IDomainEvent> _domainEvents = new();
     public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
     protected void Raise(IDomainEvent domainEvent) => _domainEvents.Add(domainEvent);

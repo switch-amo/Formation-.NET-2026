@@ -29,9 +29,7 @@ public static class FundEndpoints {
     }
 
     private static async Task<IResult> CreateFund(CreateFundRequest request, ISender sender, CancellationToken ct) {
-        var id = await sender.Send(
-            new CreateFundCommand(request.Name, request.Isin, request.Currency), ct);
-
+        var id = await sender.Send(new CreateFundCommand(request.Name, request.Isin, request.Currency), ct);
         return Results.CreatedAtRoute("GetFund", new { id }, new { id });
     }
 

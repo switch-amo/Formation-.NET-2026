@@ -4,7 +4,7 @@ using PAS.Domain.Funds.ValueObjects;
 
 namespace PAS.Domain.Funds;
 
-public sealed class Fund : AggregateRoot {
+public sealed class Fund : AggregateRoot<FundId> {
     private readonly List<Nav> _navs = new();
 
     public string Name { get; private set; } = null!;
@@ -21,7 +21,7 @@ public sealed class Fund : AggregateRoot {
         if (string.IsNullOrWhiteSpace(name)) throw new DomainException("Fund name is required");
 
         return new Fund {
-            Id = Guid.NewGuid(),
+            Id = FundId.New(),
             Name = name.Trim(),
             Isin = isin,
             Currency = currency,
