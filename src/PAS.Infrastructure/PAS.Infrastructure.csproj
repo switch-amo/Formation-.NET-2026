@@ -16,8 +16,4 @@
     <ProjectReference Include="..\PAS.Domains\PAS.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Persistence\Migrations\" />
-  </ItemGroup>
-
 </Project>

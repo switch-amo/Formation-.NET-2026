@@ -1,8 +1,8 @@
-﻿// Api/Endpoints/FundEndpoints.cs
-using MediatR;
-using PAS.Application.Queries.Funds;
-using PAS.Asset.Application.Funds.Commands.CreateFund;
-using PAS.Asset.Application.Funds.Commands.PutFundNav;
+﻿using MediatR;
+using PAS.Application.Commands.Funds.CreateFund;
+using PAS.Application.Commands.Funds.PutFundNav;
+using PAS.Application.Queries.Funds.GetFund;
+using PAS.Application.Queries.Funds.GetFundList;
 
 namespace PAS.Asset.Api.Endpoints;
 
@@ -32,7 +32,6 @@ public static class FundEndpoints {
         var id = await sender.Send(
             new CreateFundCommand(request.Name, request.Isin, request.Currency), ct);
 
-        // 201 Created + Location header pointing to the GetFund route.
         return Results.CreatedAtRoute("GetFund", new { id }, new { id });
     }
 
@@ -42,6 +41,5 @@ public static class FundEndpoints {
     }
 }
 
-// API contracts (request bodies) kept SEPARATE from the internal commands.
 public sealed record CreateFundRequest(string Name, string Isin, string Currency);
 public sealed record PutFundNavRequest(DateOnly Date, decimal Value);

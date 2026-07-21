@@ -1,6 +1,7 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-var sqlServer = builder.AddSqlServer("sqlserver");
+var sqlServer = builder.AddSqlServer("sqlserver")
+                .WithLifetime(ContainerLifetime.Persistent);
 
 var database = sqlServer.AddDatabase("PasAsset");
 

@@ -2,7 +2,6 @@
 
 namespace PAS.Domain.Funds.ValueObjects;
 
-// Value Object: an ISO 4217 currency code (e.g. "EUR", "USD").
 public sealed record Currency {
     public string Code { get; }
 

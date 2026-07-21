@@ -1,9 +1,8 @@
 ﻿using MediatR;
 using PAS.Application.Dtos;
-using PAS.Application.Queries.Funds;
 using PAS.Domain.Repositories;
 
-namespace PAS.Application.Handlers.Funds;
+namespace PAS.Application.Queries.Funds.GetFundList;
 
 public sealed class GetFundListHandler : IRequestHandler<GetFundListQuery, IReadOnlyList<FundListItemDto>> {
     private readonly IFundRepository _repository;
@@ -13,9 +12,7 @@ public sealed class GetFundListHandler : IRequestHandler<GetFundListQuery, IRead
     public async Task<IReadOnlyList<FundListItemDto>> Handle(GetFundListQuery request, CancellationToken cancellationToken) {
         var funds = await _repository.GetAllAsync(cancellationToken);
 
-        // VO -> primitive at the boundary: Isin.Value, Currency.Code
-        return funds
-            .Select(fund => new FundListItemDto(
+        return funds.Select(fund => new FundListItemDto(
                 fund.Id,
                 fund.Name,
                 fund.Isin.Value,

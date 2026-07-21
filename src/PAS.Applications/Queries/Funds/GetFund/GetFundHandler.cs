@@ -1,8 +1,7 @@
 ﻿using MediatR;
-using PAS.Application.Queries.Funds;
 using PAS.Domain.Repositories;
 
-namespace PAS.Asset.Application.Funds.Queries.GetFund;
+namespace PAS.Application.Queries.Funds.GetFund;
 
 public sealed class GetFundHandler : IRequestHandler<GetFundQuery, FundDto?> {
     private readonly IFundRepository _repository;

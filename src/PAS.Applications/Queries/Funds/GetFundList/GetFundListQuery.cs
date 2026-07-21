@@ -1,6 +1,6 @@
 ﻿using MediatR;
-using PAS.Application.Dtos;   
+using PAS.Application.Dtos;
 
-namespace PAS.Application.Queries.Funds;
+namespace PAS.Application.Queries.Funds.GetFundList;
 
 public sealed record GetFundListQuery : IRequest<IReadOnlyList<FundListItemDto>>;

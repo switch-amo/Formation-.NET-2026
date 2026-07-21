@@ -3,7 +3,7 @@
     <Project Path="PAS.Aspire/PAS.Aspire.csproj" Id="d2ce6913-4da1-4002-bae9-1cd1cede2625" />
   </Folder>
   <Folder Name="/src/backend/" />
-  <Folder Name="/src/backend/PAS/">
+  <Folder Name="/src/backend/Assets/">
     <Project Path="PAS.Api/PAS.Api.csproj" Id="5e468931-f9ae-4ea2-8eba-0ed0ceb54050" />
     <Project Path="PAS.Applications/PAS.Application.csproj" Id="6048a583-c5d5-4c79-aaae-8e15461d1fe9" />
     <Project Path="PAS.Domains/PAS.Domain.csproj" Id="7b9f780d-7701-4cd6-ab12-24e6608f6194" />

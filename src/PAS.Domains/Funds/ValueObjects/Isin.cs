@@ -2,7 +2,6 @@
 
 namespace PAS.Domain.Funds.ValueObjects;
 
-// Value Object: an ISIN (ISO 6166). Immutable, compared by value.
 public sealed record Isin {
     public string Value { get; }
 
@@ -14,7 +13,6 @@ public sealed record Isin {
 
         value = value.Trim().ToUpperInvariant();
 
-        // ISO 6166 structure: 2-letter country code + 9 alphanumeric + 1 check digit
         if (value.Length != 12)
             throw new DomainException($"ISIN must be 12 characters, got {value.Length}");
 

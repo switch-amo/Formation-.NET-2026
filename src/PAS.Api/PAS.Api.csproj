@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PAS.Applications\PAS.Application.csproj" />
-    <ProjectReference Include="..\PAS.Domains\PAS.Domain.csproj" />
     <ProjectReference Include="..\PAS.Infrastructure\PAS.Infrastructure.csproj" />
   </ItemGroup>
 
