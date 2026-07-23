@@ -15,7 +15,7 @@ public class GetFundListHandlerTests {
 
         var fund = Fund.Create(
             "Global Equity",
-            Isin.Create("FR1234567890"),
+            Isin.Create("FR0000120271"),
             Currency.Create("EUR"));
 
 

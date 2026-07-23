@@ -1,28 +1,54 @@
-using PAS.Asset.Api.Endpoints;
-using PAS.Asset.Application;
-using PAS.Asset.Infrastructure.Persistence;
+using Microsoft.AspNetCore.Authorization;
+using PAS.Api.Endpoints;
+using PAS.Api.Handlers;
+using PAS.Application;
+using PAS.Infrastructure.Persistence;
 using PAS.Infrastructure;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
 builder.Services.AddOpenApi();
+builder.Services.AddProblemDetails();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
+builder.Services.AddAuthentication()
+    .AddKeycloakJwtBearer(
+        serviceName: "keycloak",
+        realm: "PasAsset",   // the realm you create in Keycloak
+        options => {
+            options.Audience = "pas.api";
+            // Development only — disable HTTPS metadata validation.
+            if (builder.Environment.IsDevelopment()) {
+                options.RequireHttpsMetadata = false;
+            }
+        });
+
+builder.Services.AddAuthorization(options => {
+    // Every endpoint requires an authenticated user unless it has [AllowAnonymous].
+    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+});
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope()) {
-    var dbContext = scope.ServiceProvider.GetRequiredService<AssetDbContext>();
-    dbContext.Database.EnsureCreated();
-}
+app.Services.ApplyMigrations();
 
+app.UseAuthentication();
+app.UseAuthorization();  
 app.UseExceptionHandler();
 
-app.MapOpenApi();           
-app.MapScalarApiReference(); 
-
+app.MapOpenApi().AllowAnonymous();
+app.MapScalarApiReference(options => {
+    options
+        .AddPreferredSecuritySchemes("Bearer")
+        .AddHttpAuthentication("Bearer", http => { });
+})
+.AllowAnonymous();
 app.MapFundEndpoints();
 
 app.Run();

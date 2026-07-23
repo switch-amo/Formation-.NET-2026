@@ -8,37 +8,37 @@ public class IsinTests {
     [Fact]
     public void Create_WithValidValue_ShouldReturnIsin() {
         // Arrange
-        var value = "FR1234567890";
+        var value = "FR0000120271";
 
         // Act
         var isin = Isin.Create(value);
 
         // Assert
-        isin.Value.Should().Be("FR1234567890");
+        isin.Value.Should().Be("FR0000120271");
     }
 
     [Fact]
     public void Create_ShouldConvertToUpperCase() {
         // Arrange
-        var value = "fr1234567890";
+        var value = "fr0000120271";
 
         // Act
         var isin = Isin.Create(value);
 
         // Assert
-        isin.Value.Should().Be("FR1234567890");
+        isin.Value.Should().Be("FR0000120271");
     }
 
     [Fact]
     public void Create_ShouldTrimValue() {
         // Arrange
-        var value = "  FR1234567890  ";
+        var value = "  FR0000120271  ";
 
         // Act
         var isin = Isin.Create(value);
 
         // Assert
-        isin.Value.Should().Be("FR1234567890");
+        isin.Value.Should().Be("FR0000120271");
     }
 
     [Fact]
@@ -79,5 +79,18 @@ public class IsinTests {
         // Assert
         action.Should().Throw<DomainException>()
             .WithMessage("ISIN must be alphanumeric");
+    }
+
+    [Fact]
+    public void Create_WithInvalidCheckDigit_ShouldThrowDomainException() {
+        // Arrange — structurally valid but the ISO 6166 check digit is wrong.
+        var value = "FR1234567890";
+
+        // Act
+        var action = () => Isin.Create(value);
+
+        // Assert
+        action.Should().Throw<DomainException>()
+            .WithMessage("ISIN has an invalid check digit");
     }
 }

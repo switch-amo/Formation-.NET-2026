@@ -18,7 +18,9 @@ public sealed class GetFundListHandler : IRequestHandler<GetFundListQuery, IRead
                 fund.Isin.Value,
                 fund.Currency.Code,
                 fund.Status.ToString(),
-                fund.LatestNav?.Value))
+                fund.Navs.OrderByDescending(n => n.Date)
+                    .Select(n => new NavDto(n.Date, n.Value))
+                    .ToList()))
             .ToList();
     }
 }

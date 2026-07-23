@@ -6,4 +6,4 @@ public sealed record FundListItemDto(
     string Isin,
     string Currency,
     string Status,
-    decimal? LatestNav);
+    IReadOnlyList<NavDto> Navs);

@@ -2,7 +2,7 @@
 using PAS.Domain.Funds;
 using PAS.Domain.Repositories;
 
-namespace PAS.Asset.Infrastructure.Persistence.Repositories;
+namespace PAS.Infrastructure.Persistence.Repositories;
 
 public sealed class FundRepository : IFundRepository {
     private readonly AssetDbContext _dbContext;

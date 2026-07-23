@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
-using PAS.Application.Commands.Funds.PutFundNav;
 
-namespace PAS.Application.Commands.CreateFund;
+namespace PAS.Application.Commands.Funds.PutFundNav;
 
 public sealed class PutFundNavCommandValidator : AbstractValidator<PutFundNavCommand> {
     public PutFundNavCommandValidator() {

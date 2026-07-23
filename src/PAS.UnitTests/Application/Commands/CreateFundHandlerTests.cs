@@ -14,7 +14,7 @@ public class CreateFundHandlerTests {
         var repository = Substitute.For<IFundRepository>();
 
         var handler = new CreateFundHandler(repository);
-        var command = new CreateFundCommand("Global Equity", "FR1234567890", "EUR");
+        var command = new CreateFundCommand("Global Equity", "FR0000120271", "EUR");
 
         // Act
         var result = await handler.Handle(command, CancellationToken.None);
@@ -40,7 +40,7 @@ public class CreateFundHandlerTests {
         var repository = Substitute.For<IFundRepository>();
 
         var handler = new CreateFundHandler(repository);
-        var command = new CreateFundCommand("", "FR1234567890", "EUR");
+        var command = new CreateFundCommand("", "FR0000120271", "EUR");
 
         // Act
         var action = async () => await handler.Handle(command, CancellationToken.None);

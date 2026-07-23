@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PAS.Domain.Funds;
 
-namespace PAS.Asset.Infrastructure.Persistence;
+namespace PAS.Infrastructure.Persistence;
 
 public sealed class AssetDbContext : DbContext {
     public AssetDbContext(DbContextOptions<AssetDbContext> options) : base(options) { }

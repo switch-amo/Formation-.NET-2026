@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using PAS.Application.Dtos;
 using PAS.Domain.Repositories;
 
 namespace PAS.Application.Queries.Funds.GetFund;

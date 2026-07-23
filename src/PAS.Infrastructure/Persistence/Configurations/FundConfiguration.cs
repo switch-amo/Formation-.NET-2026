@@ -10,6 +10,12 @@ public sealed class FundConfiguration : IEntityTypeConfiguration<Fund> {
 
         builder.HasKey(f => f.Id);
 
+        builder.Property(f => f.Id)
+            .HasConversion(
+                id => id.Value,
+                value => new FundId(value))
+            .ValueGeneratedNever();
+
         builder.Property(f => f.Name)
             .HasMaxLength(200)
             .IsRequired();

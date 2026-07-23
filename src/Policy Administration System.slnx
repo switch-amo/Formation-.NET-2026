@@ -8,6 +8,7 @@
     <Project Path="PAS.Applications/PAS.Application.csproj" Id="6048a583-c5d5-4c79-aaae-8e15461d1fe9" />
     <Project Path="PAS.Domains/PAS.Domain.csproj" Id="7b9f780d-7701-4cd6-ab12-24e6608f6194" />
     <Project Path="PAS.Infrastructure/PAS.Infrastructure.csproj" Id="d00838c1-9295-48f0-b88e-eb05e7f7479e" />
+    <Project Path="PAS.ServiceDefaults/PAS.ServiceDefaults.csproj" Id="957fd78b-08c3-4df9-87aa-83b71093aac5" />
   </Folder>
   <Folder Name="/src/backend/Assets/Tests/">
     <Project Path="PAS.UnitTests/PAS.UnitTests.csproj" Id="5e043a70-6bf6-4491-8816-f10c25665949" />

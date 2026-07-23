@@ -9,7 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.Keycloak" Version="13.4.6-preview.1.26319.6" />
     <PackageReference Include="Aspire.Hosting.SqlServer" Version="13.4.6" />
+    <PackageReference Include="CommunityToolkit.Aspire.Hosting.DbGate" Version="13.4.1-beta.686" />
+    <PackageReference Include="CommunityToolkit.Aspire.Hosting.SqlServer.Extensions" Version="13.4.1-beta.686" />
   </ItemGroup>
 
   <ItemGroup>

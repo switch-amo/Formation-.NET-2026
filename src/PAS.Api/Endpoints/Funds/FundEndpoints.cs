@@ -4,7 +4,7 @@ using PAS.Application.Commands.Funds.PutFundNav;
 using PAS.Application.Queries.Funds.GetFund;
 using PAS.Application.Queries.Funds.GetFundList;
 
-namespace PAS.Asset.Api.Endpoints;
+namespace PAS.Api.Endpoints;
 
 public static class FundEndpoints {
     public static IEndpointRouteBuilder MapFundEndpoints(this IEndpointRouteBuilder app) {

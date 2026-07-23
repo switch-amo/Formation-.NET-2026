@@ -5,6 +5,8 @@ using PAS.Domain.Funds.ValueObjects;
 namespace PAS.UnitTests.Domain.Funds.ValueObjects;
 
 public class NavTests {
+    private static readonly DateOnly Today = new(2025, 6, 15);
+
     [Fact]
     public void Create_WithValidData_ShouldReturnNav() {
         // Arrange
@@ -12,7 +14,7 @@ public class NavTests {
         var value = 125.50m;
 
         // Act
-        var nav = Nav.Create(date, value);
+        var nav = Nav.Create(date, value, Today);
 
         // Assert
         nav.Date.Should().Be(date);
@@ -28,7 +30,7 @@ public class NavTests {
         var date = new DateOnly(2025, 1, 1);
 
         // Act
-        var action = () => Nav.Create(date, value);
+        var action = () => Nav.Create(date, value, Today);
 
         // Assert
         action.Should().Throw<DomainException>().WithMessage("NAV value must be strictly positive");
@@ -36,11 +38,11 @@ public class NavTests {
 
     [Fact]
     public void Create_WithFutureDate_ShouldThrowDomainException() {
-        // Arrange
-        var futureDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(1));
+        // Arrange — one day after the fixed clock.
+        var futureDate = new DateOnly(2025, 6, 16);
 
         // Act
-        var action = () => Nav.Create(futureDate, 100m);
+        var action = () => Nav.Create(futureDate, 100m, Today);
 
         // Assert
         action.Should().Throw<DomainException>().WithMessage("NAV date cannot be in the future");
@@ -48,14 +50,11 @@ public class NavTests {
 
     [Fact]
     public void Create_WithTodayDate_ShouldReturnNav() {
-        // Arrange
-        var today = DateOnly.FromDateTime(DateTime.UtcNow);
-
-        // Act
-        var nav = Nav.Create(today, 100m);
+        // Act — a valuation date equal to "today" is allowed.
+        var nav = Nav.Create(Today, 100m, Today);
 
         // Assert
-        nav.Date.Should().Be(today);
+        nav.Date.Should().Be(Today);
         nav.Value.Should().Be(100m);
     }
 }

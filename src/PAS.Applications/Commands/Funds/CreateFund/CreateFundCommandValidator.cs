@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
-using PAS.Application.Commands.Funds.CreateFund;
 
-namespace PAS.Application.Commands.CreateFund;
+namespace PAS.Application.Commands.Funds.CreateFund;
 
 public sealed class CreateFundCommandValidator : AbstractValidator<CreateFundCommand> {
     public CreateFundCommandValidator() {
