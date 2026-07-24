@@ -21,7 +21,7 @@ var keycloak = builder.AddKeycloak("keycloak", 8080,
                     adminPassword: kcPassword)
                 .WithLifetime(ContainerLifetime.Persistent)
                 .WithDataVolume()
-                .WithRealmImport("./realms")
+                .WithRealmImport("./Realms")
                 .WithOtlpExporter();
 
 // Projects
