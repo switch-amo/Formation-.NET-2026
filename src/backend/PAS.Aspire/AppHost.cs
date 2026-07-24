@@ -26,10 +26,19 @@ var keycloak = builder.AddKeycloak("keycloak", 8080,
 
 // Projects
 
-builder.AddProject<Projects.PAS_Api>("PAS-API")
+var api = builder.AddProject<Projects.PAS_Api>("PAS-API")
     .WithReference(database)
     .WaitFor(database)
     .WithReference(keycloak)
     .WaitFor(keycloak);
+
+// Frontend (React + Vite)
+
+builder.AddNpmApp("frontend", "../../frontend", "dev")
+    .WithReference(api)
+    .WaitFor(api)
+    .WithHttpEndpoint(env: "PORT")
+    .WithEnvironment("VITE_API_TARGET", api.GetEndpoint("http"))
+    .WithExternalHttpEndpoints();
 
 builder.Build().Run();
