@@ -13,8 +13,7 @@ namespace PAS.Api.Handlers;
 public sealed class GlobalExceptionHandler : IExceptionHandler {
     private readonly IProblemDetailsService _problemDetailsService;
 
-    public GlobalExceptionHandler(IProblemDetailsService problemDetailsService)
-        => _problemDetailsService = problemDetailsService;
+    public GlobalExceptionHandler(IProblemDetailsService problemDetailsService) => _problemDetailsService = problemDetailsService;
 
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken) {
         var problemDetails = MapToProblemDetails(exception);

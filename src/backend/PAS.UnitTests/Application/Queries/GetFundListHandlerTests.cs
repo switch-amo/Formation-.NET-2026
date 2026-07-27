@@ -24,9 +24,7 @@ public class GetFundListHandlerTests {
         var handler = new GetFundListHandler(repository);
 
         // Act
-        var result = await handler.Handle(
-            new GetFundListQuery(),
-            CancellationToken.None);
+        var result = await handler.Handle(new GetFundListQuery(), CancellationToken.None);
 
         // Assert
         result.Should().HaveCount(1);
