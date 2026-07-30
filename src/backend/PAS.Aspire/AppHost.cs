@@ -16,7 +16,7 @@ var database = sqlServer.AddDatabase("PasAsset");
 var kcUsername = builder.AddParameter("keycloak-username", "admin");
 var kcPassword = builder.AddParameter("keycloak-password", secret: true);
 
-var keycloak = builder.AddKeycloak("keycloak",
+var keycloak = builder.AddKeycloak("keycloak", port: 8080,
                     adminUsername: kcUsername,
                     adminPassword: kcPassword)
                 .WithLifetime(ContainerLifetime.Persistent)
