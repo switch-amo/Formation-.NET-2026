@@ -16,13 +16,24 @@ var database = sqlServer.AddDatabase("PasAsset");
 var kcUsername = builder.AddParameter("keycloak-username", "admin");
 var kcPassword = builder.AddParameter("keycloak-password", secret: true);
 
-var keycloak = builder.AddKeycloak("keycloak", 8080,
+var keycloak = builder.AddKeycloak("keycloak",
                     adminUsername: kcUsername,
                     adminPassword: kcPassword)
                 .WithLifetime(ContainerLifetime.Persistent)
                 .WithDataVolume()
                 .WithRealmImport("./Realms")
                 .WithOtlpExporter();
+
+// HashiCorp Vault (mode dev, en mémoire) — aucun secret n'y est stocké pour l'instant
+
+var vaultRootToken = builder.AddParameter("vault-root-token", "dev-root-token", secret: true);
+
+var vault = builder.AddContainer("vault", "hashicorp/vault", "1.21")
+                .WithLifetime(ContainerLifetime.Persistent)
+                .WithHttpEndpoint(port: 8200, targetPort: 8200, name: "http")
+                .WithEnvironment("VAULT_DEV_ROOT_TOKEN_ID", vaultRootToken)
+                .WithEnvironment("VAULT_DEV_LISTEN_ADDRESS", "0.0.0.0:8200")
+                .WithHttpHealthCheck("/v1/sys/health", endpointName: "http");
 
 // Projects
 

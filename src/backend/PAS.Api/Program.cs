@@ -12,16 +12,16 @@ builder.AddServiceDefaults();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
-builder.Services.AddHttpClient("keycloak", client => client.BaseAddress = new Uri("https://localhost:8080"));
-
 builder.Services.AddOpenApi();
 builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
+builder.Services.AddHttpClient("keycloak", client => client.BaseAddress = new Uri("https://localhost:8080"));
+
 builder.Services.AddAuthentication()
     .AddKeycloakJwtBearer(
         serviceName: "keycloak",
-        realm: "PasAsset",   // the realm you create in Keycloak
+        realm: "PasAsset",
         options => {
             options.Audience = "pas.api";
             // Development only — disable HTTPS metadata validation.
@@ -36,6 +36,7 @@ builder.Services.AddAuthorization(options => {
         .RequireAuthenticatedUser()
         .Build();
 });
+
 var app = builder.Build();
 
 app.Services.ApplyMigrations();

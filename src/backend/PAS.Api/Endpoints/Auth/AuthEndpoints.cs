@@ -5,9 +5,6 @@ public static class AuthEndpoints {
     private const string ClientId = "pas.api";
 
     public static IEndpointRouteBuilder MapAuthEndpoints(this IEndpointRouteBuilder app) {
-        // DEV-ONLY helper: exchanges test credentials for a Keycloak token via the
-        // Resource Owner Password grant, so you can grab a bearer token straight from
-        // Scalar. It must never be mapped in production.
         app.MapPost("/auth/token", GetToken)
             .WithTags("Auth")
             .WithName("GetToken")
