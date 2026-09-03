@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PAS.Api\PAS.Api.csproj" />
+    <ProjectReference Include="..\PAS.VaultSeeder\PAS.VaultSeeder.csproj" />
   </ItemGroup>
 
 </Project>
